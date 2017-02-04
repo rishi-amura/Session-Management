@@ -1,0 +1,24 @@
+<html>
+	<head><title>Session Management</title></head>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/underscore.js"></script>
+	<script type="text/javascript" src="js/backbone.js"></script>
+	<script type="text/javascript" src="js/backbone.radio.js"></script>
+	<script type="text/javascript" src="js/backbone.marionette.js"></script>
+	<script type="text/javascript">
+
+		$( document ).ready(function() {
+			const MyView = Mn.View.extend({
+			  tagName: 'h1',
+			  template: _.template('Marionette says hi!')
+			});
+
+			const myView = new MyView();
+			myView.render();
+			$('body').append(myView.$el);
+		});
+
+	</script>
+	<body>
+	</body>
+</html>
