@@ -5,20 +5,46 @@
 	<script type="text/javascript" src="js/backbone.js"></script>
 	<script type="text/javascript" src="js/backbone.radio.js"></script>
 	<script type="text/javascript" src="js/backbone.marionette.js"></script>
+	<script type="text/javascript" src="js/backbone"></script>
 	<script type="text/javascript">
 
 		$( document ).ready(function() {
-			const MyView = Mn.View.extend({
-			  tagName: 'h1',
-			  template: _.template('Marionette says hi!')
+			var User = Backbone.Model.extend({
+			  initialize: function(attributes = {}) {
+			  	var name = attributes.name ? attributes.name : 'User';
+			  	var email = attributes.email ? attributes.email : 'user@amuratech.com';
+			  	this.set('name', name);
+			  	this.set('email', email);
+			  }
 			});
 
-			const myView = new MyView();
-			myView.render();
-			$('body').append(myView.$el);
+			var Users = Backbone.Collection.extend({
+		  	url: '/users',
+		  	model: User
+			});
+
+			var users = new Users;
+			_.each([1,2,3,4,5], function(i){
+				var user = new User({'name': 'User ' + i, 'email': 'user' + i + '@amuratech.com' });
+				users.add(user);
+			});
+
+			users.each(function(user){
+				$('.users').append(user.get('name'));
+			});
+
+			// const MyView = Mn.View.extend({
+			//   tagName: 'h1',
+			//   template: _.template('Marionette says hi!')
+			// });
+
+			// const myView = new MyView();
+			// myView.render();
+			// $('body').append(myView.$el);
 		});
 
 	</script>
 	<body>
+		<div class="users"></div>
 	</body>
 </html>
